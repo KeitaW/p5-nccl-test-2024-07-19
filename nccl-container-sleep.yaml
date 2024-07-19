@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-pod
+  labels:
+    app: ubuntu
+spec:
+  containers:
+  - name: ubuntu-container
+    image: ubuntu:latest
+    command: ["/bin/bash", "-c", "while true; do sleep 30; done;"]
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 3000
+      fsGroup: 2000
+  restartPolicy: Always
