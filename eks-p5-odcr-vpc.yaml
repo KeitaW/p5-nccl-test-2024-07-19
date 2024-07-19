@@ -1,0 +1,48 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks-p5-odcr-vpc
+  region: PLACEHOLDER_AWS_REGION
+  version: "1.29"
+
+# Substitute vpc and subnet ids below
+vpc:
+  id: PLACEHOLDER_VPC_ID
+  subnets:
+    private:
+      private-one:
+        id: subnet-050cede1dcfcb07c4
+      private-two:
+        id: PLACEHOLDER_SUBNET_PRIVATE_2
+    public:
+      public-one:
+        id: PLACEHOLDER_SUBNET_PUBLIC_1
+      public-two:
+        id: PLACEHOLDER_SUBNET_PUBLIC_2  
+
+# Fully-managed nodegroups     
+managedNodeGroups:
+
+    # GPU nodegroup
+    # Update capacityReservationID below
+  - name: p5-ocdr
+    instanceType: p5.48xlarge
+    instancePrefix: p5-odcr-nodes
+    privateNetworking: true
+    efaEnabled: true
+    minSize: 16
+    desiredCapacity: 16
+    maxSize: 16
+    volumeSize: 1024
+    capacityReservation:
+      capacityReservationTarget:
+        capacityReservationID: "cr-03d3df2e13babf2ae"
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        cloudWatch: true
+        ebs: true
+        fsx: true
+
+      
