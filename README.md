@@ -40,7 +40,12 @@ aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS
 docker push 159553542841.dkr.ecr.ap-northeast-1.amazonaws.com/nccl-test:${EFA_INSTALLER_VERSION}-${AWS_OFI_NCCL_VERSION}-${NCCL_VERSION}-${NCCL_TESTS_VERSION}
 ```
 
+```bash
+kubectl apply -f https://raw.githubusercontent.com/aws-samples/aws-efa-eks/main/manifest/efa-k8s-device-plugin.yml
+```
+
 
 ```bash
-kubectl apply --server-side -f https://raw.githubusercontent.com/kubeflow/mpi-operator/v0.5.0/deploy/v2beta1/mpi-operator.yaml
+#kubectl apply --server-side -f https://raw.githubusercontent.com/kubeflow/mpi-operator/v0.5.0/deploy/v2beta1/mpi-operator.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubeflow/mpi-operator/v0.4.0/deploy/v2beta1/mpi-operator.yaml
 ```
